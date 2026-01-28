@@ -6,7 +6,7 @@
 
 <br/>
 
-**The repository is in progress!**
+**The repository is in progress (yet, it already contains everything to reproduce the results)!**
 
 ![results](assets/results.png)
 
@@ -22,6 +22,8 @@ By providing both the dataset and baseline classification models, we aim to supp
 
 ## Datasets
 
+[https://doi.org/10.5281/zenodo.17473413](https://doi.org/10.5281/zenodo.17473413).
+
 ## Getting started
 
 ## License
@@ -34,7 +36,13 @@ This software is licensed under the [GNU General Public License v2](LICENSE).
 To cite the paper/repository, please use the following bib entry. 
 
 ```
-@article{
-  ...
+@misc{massiveteam_glacierfaciesclassification_2026,
+  author       = {Maslov, K. A. and Schellenberger, T. and Pandit, P. and Persello, C. and Stein, A.},
+  title        = {Automating glacier facies classification: pan-European dataset and deep learning baseline},
+  year         = {2026},
+  howpublished = {EarthArXiv preprint},
+  url          = {https://eartharxiv.org/repository/view/11580/},
+  doi          = {10.31223/X5QN1V},
+  note         = {Accessed: 2026-01-27}
 }
 ```
