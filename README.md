@@ -6,8 +6,6 @@
 
 <br/>
 
-**The repository is in progress (yet, it already contains everything to reproduce the results)!**
-
 ![results](assets/results.png)
 
 Glacier facies play a critical role in understanding the mass balance of glaciers, offering insights into accumulation and melting processes. 
@@ -20,7 +18,6 @@ When the facies products were regressed against World Glacier Monitoring Service
 Overall, the dataset and baseline show that large-scale glacier facies classification can be achieved with high consistency. 
 By providing both the dataset and baseline classification models, we aim to support the broader community in developing more advanced methods for glacier facies mapping to enhance our understanding of ongoing glacial changes. 
 
-
 <br/>
 
 ## Datasets
@@ -28,8 +25,60 @@ By providing both the dataset and baseline classification models, we aim to supp
 The dataset can be accessed at [https://doi.org/10.5281/zenodo.18469893](https://doi.org/10.5281/zenodo.18469893). 
 Place it in a separate folder and adjust the paths in `main.ipynb` accordingly. 
 
+
 ## Getting started
 
+We recommend using the [Anaconda](https://www.anaconda.com/download) or [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/) Python distributions. 
+After installing one of them, one can use the `conda` package manager to install the required libraries in a new environment called `massive-tf` and activate it by running
+
+```
+conda create -n massive-tf "tensorflow<2.16" cleanlab h5py scikit-learn rioxarray geopandas jupyterlab tqdm matplotlib -c conda-forge
+conda activate massive-tf
+```
+
+We tested this configuration on Ubuntu 22.04 (see `env.yml` for the exported environment). 
+We also expect it to work on any modern Linux distribution or Windows, given properly configured NVIDIA GPU drivers.
+
+<br/>
+
+To reproduce the results presented in the manuscript, follow [`main.ipynb`](main.ipynb) for the main training-evaluation cycles and [`confidence_calibration.ipynb`](confidence_calibration.ipynb) for the predictive confidence calibration. 
+The pretrained models are available in `weights/<FOLD>_cnn<before|after>confidencelearning_weights.h5` (the best feature set) or in `weights/<FEATURESET>/<FOLD>_cnn<before|after>confidencelearning_weights.h5`. 
+Similarly, the training logs are stored in `logs/...`.
+
+<br/>
+
+Applying a model to a complete scene can be achieved by means of `apply.py`. 
+The usage is as follows:
+```
+usage: apply.py [-h] [--dem_path DEM_PATH] [--slope_path SLOPE_PATH] [--shadow_path SHADOW_PATH] [--hillshade_path HILLSHADE_PATH] [--proximity_path PROXIMITY_PATH]
+                [--confidence_path CONFIDENCE_PATH] [--calibration_model CALIBRATION_MODEL] [--no_smoothing]
+                model_name raster_path output_path outlines_path
+
+positional arguments:
+  model_name            Model name
+  raster_path           Raster path (.tif)
+  output_path           Output path (.tif)
+  outlines_path         Outlines path (.shp/.geojson)
+
+options:
+  -h, --help            show this help message and exit
+  --dem_path DEM_PATH   Elevation path (.tif)
+  --slope_path SLOPE_PATH
+                        Slope path (.tif)
+  --shadow_path SHADOW_PATH
+                        Shadow mask (0/1) path (.tif)
+  --hillshade_path HILLSHADE_PATH
+                        Hillshade path (.tif)
+  --proximity_path PROXIMITY_PATH
+                        Proximity path (.tif)
+  --confidence_path CONFIDENCE_PATH
+                        Output confidence path (.tif)
+  --calibration_model CALIBRATION_MODEL
+                        Confidence calibration model (.pickle)
+  --no_smoothing        Turn off mode smoothing of results
+```
+Model name follows `<FOLD>_cnn<before|after>confidencelearning`. 
+Make sure that the number of provided features and the number of features expected by the model are aligned, as well as that all input raster are defined on identical 10 m grids.
 
 
 ## License
