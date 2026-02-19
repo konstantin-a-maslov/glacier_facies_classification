@@ -25,9 +25,12 @@ By providing both the dataset and baseline classification models, we aim to supp
 
 ## Datasets
 
-[https://doi.org/10.5281/zenodo.18469893](https://doi.org/10.5281/zenodo.18469893).
+The dataset can be accessed at [https://doi.org/10.5281/zenodo.18469893](https://doi.org/10.5281/zenodo.18469893). 
+Place it in a separate folder and adjust the paths in `main.ipynb` accordingly. 
 
 ## Getting started
+
+
 
 ## License
 
